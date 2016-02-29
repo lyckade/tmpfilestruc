@@ -1,6 +1,7 @@
 tfs = require "../src/tmpfilestruc"
 
 describe "tmpfilestruc", ->
+  tfs.tmpoptions = tfs.options
   it "should have default options", ->
     expect(tfs.options.files).toBe 10
 
