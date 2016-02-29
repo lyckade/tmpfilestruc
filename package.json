@@ -1,0 +1,25 @@
+{
+  "name": "tmpfilestruc",
+  "version": "0.0.1",
+  "description": "Creates random files, folders and subfolders for test purposes.",
+  "main": "index.js",
+  "bin": {
+    "tmpfilestruc": "./bin/tmpfilestruc"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "keywords": [
+    "tmp",
+    "testing",
+    "node.js"
+  ],
+  "author": "lyckade",
+  "license": "ISC",
+  "dependencies": {
+    "coffee-script": "^1.10.0",
+    "commander": "^2.9.0",
+    "fs-extra": "^0.26.5",
+    "underscore": "^1.8.3"
+  }
+}
