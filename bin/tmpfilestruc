@@ -1,18 +1,4 @@
 #!/usr/bin/env node
 
 require("coffee-script").register();
-tmpfilestruc = require("../src/tmpfilestruc");
-program = require "commander"
-fse = require "fs-extra"
-path = require "path"
-
-packageObj = fse.readJsonSync path.join __dirname, "../package.json"
-
-
-program
-  .version packageObj.version
-  .usage '[options] <file ...>'
-  .option '-rl --recursionlevel <n>', 'Levels of recursion for the folders', parseInt
-  .option '-f --files <n>', 'Number of files per folder', parseInt
-  .option '-d --directories <n>', 'Number of subdirectories per folder', parseInt
-  .parse(process.argv)
+tmpfilestruc = require("./tmpfilestruc.coffee");

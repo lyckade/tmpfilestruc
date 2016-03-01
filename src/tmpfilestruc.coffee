@@ -14,7 +14,9 @@ class Tmpfilestruc
 
   createStructure: (root, options = {}) ->
     @tmpoptions = _.defaults options, @options
-
+    names = @createFileNames()
+    for name in names
+      fse.ensureFileSync path.join root, name
     @tmpoptions = {}
 
   createFileNames: ->
