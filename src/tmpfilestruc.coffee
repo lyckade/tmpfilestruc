@@ -12,11 +12,17 @@ class Tmpfilestruc
       suffix: [".txt", ".doc", ".xls"]
     @tmpoptions = {}
 
-  createStructure: (root, options = {}) ->
+  createStructure: (root, options = {}, recursionLevel=1) ->
     @tmpoptions = _.defaults options, @options
-    names = @createFileNames()
-    for name in names
+    return true if @tmpoptions.recursionLevel is recursionLevel
+    fileNames = @createFileNames()
+    for name in fileNames
       fse.ensureFileSync path.join root, name
+    folders = @createDirectoryNames()
+    for folder in folders
+      folderPath = path.join root, folder
+      fse.ensureDirSync folderPath
+      @createStructure folderPath, options, recursionLevel+1
     @tmpoptions = {}
 
   createFileNames: ->
