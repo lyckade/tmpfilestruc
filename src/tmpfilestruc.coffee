@@ -1,5 +1,6 @@
 path = require "path"
 _ = require "underscore"
+fse = require "fs-extra"
 
 class Tmpfilestruc
 
@@ -11,13 +12,15 @@ class Tmpfilestruc
       nameLength: 8
       suffix: [".txt", ".doc", ".xls"]
     @tmpoptions = {}
+    @fse = fse
 
   createStructure: (root, options = {}, recursionLevel=1) ->
     @tmpoptions = _.defaults options, @options
-    return true if @tmpoptions.recursionLevel is recursionLevel
     fileNames = @createFileNames()
     for name in fileNames
       fse.ensureFileSync path.join root, name
+      console.log path.join root, name
+    return true if @tmpoptions.recursionlevel is recursionLevel
     folders = @createDirectoryNames()
     for folder in folders
       folderPath = path.join root, folder

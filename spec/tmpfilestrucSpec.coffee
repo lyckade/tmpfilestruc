@@ -13,8 +13,14 @@ describe "tmpfilestruc", ->
     fileNames = tfs.createFileNames()
     expect(fileNames.length).toBe(tfs.options.files)
 
-
   it "should create a unique name", ->
     name1 = tfs.createName()
     name2 = tfs.createName()
     expect(name1).not.toBe(name2)
+
+  it "should create files and directories", ->
+    tfs.fse.ensureDirSync = (folder) ->
+      console.log folder
+    tfs.fse.ensureFileSync = (fp) ->
+      console.log fp
+    tfs.createStructure ""
