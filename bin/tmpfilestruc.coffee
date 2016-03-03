@@ -24,4 +24,5 @@ defaults =
 
 options = _.defaults program, defaults
 tfs = require "../src/tmpfilestruc"
+tfs.log = (txt) -> console.log txt
 tfs.createStructure options.directory, options

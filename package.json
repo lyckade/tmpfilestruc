@@ -1,6 +1,6 @@
 {
   "name": "tmpfilestruc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Creates random files, folders and subfolders for test purposes.",
   "main": "index.js",
   "bin": {

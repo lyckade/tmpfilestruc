@@ -13,17 +13,21 @@ class Tmpfilestruc
       suffix: [".txt", ".doc", ".xls"]
     @tmpoptions = {}
     @fse = fse
+    @log = (txt) -> console.log txt
+
 
   createStructure: (root, options = {}, recursionLevel=1) ->
     @tmpoptions = _.defaults options, @options
     fileNames = @createFileNames()
     for name in fileNames
-      fse.ensureFileSync path.join root, name
-      console.log path.join root, name
+      filePath = path.join root, name
+      fse.ensureFileSync filePath
+      @log "File created: #{filePath}"
     return true if @tmpoptions.recursionlevel is recursionLevel
     folders = @createDirectoryNames()
     for folder in folders
       folderPath = path.join root, folder
+      @log "Dir created: #{folderPath}"
       fse.ensureDirSync folderPath
       @createStructure folderPath, options, recursionLevel+1
     @tmpoptions = {}
@@ -31,7 +35,7 @@ class Tmpfilestruc
   createFileNames: ->
     names = @createNames @tmpoptions.files
     for i in [0...names.length]
-      names[i] = names[i] + @options.suffix[Math.floor(Math.random()*@options.suffix.length)]
+      names[i] = "#{names[i]}#{@createFileSuffix()}"
     names
 
   createDirectoryNames: ->
@@ -40,11 +44,14 @@ class Tmpfilestruc
   createNames: (nr) ->
     names = []
     for i in [0...nr]
-      names.push "#{i}#{@createName()}"
+      names.push "#{i}_#{@createName()}"
     names
 
   createName: ->
     Math.random().toString(36).substring(@tmpoptions.nameLength)
+
+  createFileSuffix: ->
+    @options.suffix[Math.floor(Math.random()*@options.suffix.length)]
 
 
 
